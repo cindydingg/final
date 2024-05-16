@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Ladder
   - Floor
+  - Feather
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -49,4 +51,7 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 2819530811
+    locked: 0
+  - name: Berri
+    uniqueID: 2071106673
     locked: 0
