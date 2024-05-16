@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 5;
     float horizontalDir;
     private bool isGrounded = false;
-    
+    private Animator anim;
     private Rigidbody2D rb;
     // private float inputSensitivity = 1.0f;
 
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {        
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         // AdjustInputSensitivity();
     }
 
