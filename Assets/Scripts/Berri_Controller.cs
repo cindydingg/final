@@ -10,9 +10,13 @@ public class Berri_Controller : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpHeight = 5;
-    float horizontalDir;
+    //float horizontalDir;
+
+    private float movement = 0f;
     private bool isGrounded = false;
-    private Animator anim;
+    private int JumpCount = 0;
+
+    Animator anim;
     private Rigidbody2D rb;
     // private float inputSensitivity = 1.0f;
 
@@ -27,31 +31,51 @@ public class Berri_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(horizontalDir * speed, rb.velocity.y);       
+        Move(movement);
+        //rb.velocity = new Vector2(horizontalDir * speed, rb.velocity.y);       
+    }
+
+    private void Move(float x)
+    {
+        rb.velocity = new Vector2(x * speed, rb.velocity.y);
+        anim.SetFloat("walking_speed", Math.Abs(movement));
+    }
+
+    private void Jump()
+    {
+        Vector2 jumpAdder = new Vector2(rb.velocity.x, jumpHeight);
+        rb.AddForce(jumpAdder, ForceMode2D.Impulse);
+        JumpCount++;
     }
 
     void OnJump()
     {
-        if (isGrounded)
+        if (JumpCount < 2)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHeight); 
+            Jump();
+            anim.SetBool("is_jumping", true);
+            //  rb.velocity = new Vector2(rb.velocity.x, jumpHeight); 
         }
     }
 
     void OnMove(InputValue value)
     {
-        Vector2 inputDir = value.Get<Vector2>();
-        float inputX = inputDir.x;
-        
-        inputX = Mathf.Clamp(inputX, -1.5f, 1.5f);
-        horizontalDir = inputX;
-        // horizontalDir = inputX * inputSensitivity;
+
+        movement = value.Get<float>();
+        Debug.Log(movement);
+        //Vector2 inputDir = value.Get<Vector2>();
+        //float inputX = inputDir.x;
+
+        //inputX = Mathf.Clamp(inputX, -1.5f, 1.5f);
+        //horizontalDir = inputX;
+        //// horizontalDir = inputX * inputSensitivity;
     }
 
     private void OnCollisionEnter2D(Collision2D col) 
     {
         if (col.gameObject.CompareTag("Floor")) {
             isGrounded = true;
+            JumpCount = 0;
         }
         // } else if (col.gameObject.CompareTag("Collectible")) {
         //     isCollectible = true;
