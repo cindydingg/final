@@ -7,20 +7,17 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpHeight = 5;
-    float horizontalDir;
+    private float horizontalDir;
     private bool isGrounded = false;
-    
-    private Rigidbody2D rb;
-    // private float inputSensitivity = 1.0f;
 
-    // Start is called before the first from update
+    private Rigidbody2D rb;
+    private Dictionary<string, int> inventory = new Dictionary<string, int>();
+
     void Start()
     {        
         rb = GetComponent<Rigidbody2D>();
-        // AdjustInputSensitivity();
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.velocity = new Vector2(horizontalDir * speed, rb.velocity.y);       
@@ -37,38 +34,41 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         Vector2 inputDir = value.Get<Vector2>();
-        float inputX = inputDir.x;
-        
-        inputX = Mathf.Clamp(inputX, -1.5f, 1.5f);
-        horizontalDir = inputX;
-        // horizontalDir = inputX * inputSensitivity;
+        horizontalDir = Mathf.Clamp(inputDir.x, -1.5f, 1.5f);
     }
 
     private void OnCollisionEnter2D(Collision2D col) 
     {
-        if (col.gameObject.CompareTag("Floor")) {
+        if (col.gameObject.CompareTag("Floor"))
+        {
             isGrounded = true;
         }
-        // } else if (col.gameObject.CompareTag("Collectible")) {
-        //     isCollectible = true;
-        // }
-
+        else if (col.gameObject.CompareTag("Collectible"))
+        {
+            CollectItem(col.gameObject);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Floor")) {
+        if (other.gameObject.CompareTag("Floor"))
+        {
             isGrounded = false;
         }
-        // } else if (other.gameObject.CompareTag("Collectible")) {
-        //     isCollectible = false;
-        // }
     }
 
-    // private void AdjustInputSensitivity()
-    // {
-    //     if (Application.isMobilePlatform) {
-    //         inputSensitivity = 0.85f;
-    //     }
-    // }
+    public void CollectItem(GameObject collectible)
+    {
+        string itemType = collectible.GetComponent<CollectibleItems>().itemType;
+        if (inventory.ContainsKey(itemType))
+        {
+            inventory[itemType]++;
+        }
+        else
+        {
+            inventory.Add(itemType, 1);
+        }
+        Destroy(collectible);
+        Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
+    }
 }
