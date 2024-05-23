@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             inventory.Add(itemType, 1);
         }
+        UIManager.Instance.UpdateCollectibleCount(inventory[itemType]);
         Destroy(collectible);
         Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
     }
