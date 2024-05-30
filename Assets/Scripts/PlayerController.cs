@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
     [SerializeField] private float superJumpHeight = 10;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckDistance = 1.0f;
+    [SerializeField] private LayerMask groundLayer; // LayerMask for ground detection
+    [SerializeField] private float groundCheckDistance = 1.0f; // Distance to check for ground
 
     private float horizontalDir;
     private bool isGrounded = false;
@@ -66,19 +66,19 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             animator.SetBool("isJumping", false);
-            canDoubleJump = false;
         }
     }
 
     bool CheckIfGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
-
         return hit.collider != null;
     }
 
     void OnJump()
     {
+        isGrounded = CheckIfGrounded();
+        Debug.Log("OnJump called. isGrounded: " + isGrounded + ", canDoubleJump: " + canDoubleJump);
         if (isGrounded)
         {
             if (hasSuperJumpPowerUp)
@@ -90,11 +90,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Jump(jumpHeight);
-                canDoubleJump = true;
-                isGrounded = false;
+                if (hasDoubleJumpPowerUp)
+                {
+                    canDoubleJump = true;
+                }
             }
         }
-        else if (!isGrounded && canDoubleJump && hasDoubleJumpPowerUp)
+        else if (!isGrounded && canDoubleJump)
         {
             Jump(doubleJumpHeight);
             canDoubleJump = false;
@@ -110,22 +112,31 @@ public class PlayerController : MonoBehaviour
 
     public void CollectItem(GameObject collectible)
     {
-        string itemType = collectible.GetComponent<CollectibleItems>().itemType;
-        if (inventory.ContainsKey(itemType))
+        Debug.Log("CollectItem called with: " + collectible.name);
+        CollectibleItems collectibleComponent = collectible.GetComponent<CollectibleItems>();
+        if (collectibleComponent != null)
         {
-            inventory[itemType]++;
+            string itemType = collectibleComponent.itemType;
+            if (inventory.ContainsKey(itemType))
+            {
+                inventory[itemType]++;
+            }
+            else
+            {
+                inventory.Add(itemType, 1);
+            }
+            totalCollectibles++;
+            UIManager.Instance.UpdateCollectibleCount(totalCollectibles);
+            Destroy(collectible);
+            Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
+            if (totalCollectibles == 3)
+            {
+                CompleteLevel();
+            }
         }
         else
         {
-            inventory.Add(itemType, 1);
-        }
-        totalCollectibles++;
-        UIManager.Instance.UpdateCollectibleCount(totalCollectibles);
-        Destroy(collectible);
-        Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
-        if (totalCollectibles == 3)
-        {
-            CompleteLevel();
+            Debug.LogWarning("Collected item does not have a CollectibleItems component.");
         }
     }
 
