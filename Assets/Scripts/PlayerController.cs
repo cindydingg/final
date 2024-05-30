@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
     [SerializeField] private float superJumpHeight = 10;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 1.0f;
+
     private float horizontalDir;
     private bool isGrounded = false;
     private bool canDoubleJump = false;
@@ -58,11 +61,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        isGrounded = CheckIfGrounded();
+
         if (isGrounded)
         {
             animator.SetBool("isJumping", false);
             canDoubleJump = false;
         }
+    }
+
+    bool CheckIfGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+
+        return hit.collider != null;
     }
 
     void OnJump()
@@ -94,23 +106,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputDir = value.Get<Vector2>();
         horizontalDir = Mathf.Clamp(inputDir.x, -1.0f, 1.0f);
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = true;
-            animator.SetBool("isJumping", false);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = false;
-        }
     }
 
     public void CollectItem(GameObject collectible)
