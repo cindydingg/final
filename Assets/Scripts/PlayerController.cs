@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -116,6 +117,10 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.UpdateCollectibleCount(totalCollectibles);
         Destroy(collectible);
         Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
+        if (totalCollectibles == 3)
+        {
+            CompleteLevel();
+        }
     }
 
     public void CollectPotion(GameObject potion)
@@ -136,5 +141,10 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, height);
         animator.SetBool("isJumping", true);
+    }
+
+    private void CompleteLevel()
+    {
+        SceneManager.LoadScene("LevelCompleted");
     }
 }
