@@ -5,6 +5,7 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Berri_Controller : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Berri_Controller : MonoBehaviour
     private bool isGrounded = false;
     private int JumpCount = 0;
     private SpriteRenderer berriboy;
+    private int totalCollectibles = 0;
 
     Animator anim;
     private Rigidbody2D rb;
@@ -90,10 +92,6 @@ public class Berri_Controller : MonoBehaviour
             JumpCount = 0;
             anim.SetBool("is_jumping", false);
         }
-        // } else if (col.gameObject.CompareTag("Collectible")) {
-        //     isCollectible = true;
-        // }
-
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -102,8 +100,30 @@ public class Berri_Controller : MonoBehaviour
             isGrounded = false;
             anim.SetBool("is_jumping", true);
         }
-        // } else if (other.gameObject.CompareTag("Collectible")) {
-        //     isCollectible = false;
-        // }
+    }
+    public void CollectItem(GameObject collectible)
+    {
+        string itemType = collectible.GetComponent<Berri_Collectibles>().itemType;
+        if (inventory.ContainsKey(itemType))
+        {
+            inventory[itemType]++;
+        }
+        else
+        {
+            inventory.Add(itemType, 1);
+        }
+        totalCollectibles++;
+      //  UIManager.Instance.UpdateCollectibleCount(totalCollectibles);
+        Destroy(collectible);
+        Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
+        if (totalCollectibles == 3)
+        {
+            CompleteLevel();
+        }
+    }
+    private void CompleteLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 }
