@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
+    [SerializeField] private float sprintSpeed = 8;
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
     [SerializeField] private float superJumpHeight = 10;
@@ -32,9 +33,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = new Vector2(horizontalDir * speed, rb.velocity.y);
+        float currentSpeed = speed;
+        bool isRunning = Keyboard.current.leftShiftKey.isPressed;
+
+        if (isRunning)
+        {
+            currentSpeed = sprintSpeed;
+        }
+
+        rb.velocity = new Vector2(horizontalDir * currentSpeed, rb.velocity.y);
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalDir));
+        animator.SetBool("isRunning", isRunning);
 
         if (horizontalDir > 0)
         {
