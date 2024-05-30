@@ -969,6 +969,7 @@ GameObject:
   - component: {fileID: 559110687}
   - component: {fileID: 559110686}
   - component: {fileID: 559110685}
+  - component: {fileID: 559110691}
   m_Layer: 0
   m_Name: berri
   m_TagString: Player
@@ -1050,8 +1051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32a72c16f9f746a58e43a19f540c9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  jumpHeight: 5
+  speed: 5
+  jumpHeight: 7
 --- !u!114 &559110688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,6 +1151,27 @@ Transform:
   - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -1.817, z: 0}
+--- !u!95 &559110691
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559110684}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c4c90c732d1746499ed33cd4a844a60, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &602577146
 GameObject:
   m_ObjectHideFlags: 0

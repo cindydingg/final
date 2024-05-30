@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance; 
     [SerializeField] private TextMeshProUGUI collectibleCountText;
+    
     private void Awake()
     {
         if (Instance == null)
