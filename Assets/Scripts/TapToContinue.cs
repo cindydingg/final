@@ -5,7 +5,7 @@ using System.Collections;
 
 public class TapToContinue : MonoBehaviour
 {
-    public float delay = 2f;
+    public float delay = 1.5f;
     public CanvasGroup fadeCanvasGroup;
 
     private bool isTransitioning = false;
