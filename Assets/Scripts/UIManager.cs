@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance; 
     [SerializeField] private TextMeshProUGUI collectibleCountText;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCollectibleCount(int count)
     {
-        collectibleCountText.text = "ingredients: " + count;
+        collectibleCountText.text = "ingredients: " + count + "/3";
     }
 }
 
