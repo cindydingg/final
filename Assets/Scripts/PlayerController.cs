@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
     private void CompleteLevel()
     {
-        SceneManager.LoadScene("LevelCompleted");
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 }

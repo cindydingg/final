@@ -401,7 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360196386}
   m_Layer: 5
-  m_Name: Options Panel
+  m_Name: Rules Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,9 +510,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1940113456}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 1623572738}
+        m_TargetAssemblyTypeName: LevelCompletedManager, Assembly-CSharp
+        m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: Rules
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02ef300d974ef4146b0a144dc3ae46ed, type: 2}
   m_sharedMaterial: {fileID: 2214309061878362526, guid: 02ef300d974ef4146b0a144dc3ae46ed, type: 2}
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 1145072721}
   - component: {fileID: 1145072720}
   m_Layer: 5
-  m_Name: Options
+  m_Name: Rules
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: Rules
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02ef300d974ef4146b0a144dc3ae46ed, type: 2}
   m_sharedMaterial: {fileID: 2214309061878362526, guid: 02ef300d974ef4146b0a144dc3ae46ed, type: 2}
@@ -1703,9 +1703,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1940113456}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: exitGame
+      - m_Target: {fileID: 1623572738}
+        m_TargetAssemblyTypeName: LevelCompletedManager, Assembly-CSharp
+        m_MethodName: LoadTitleScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2091,6 +2091,7 @@ GameObject:
   - component: {fileID: 1623572734}
   - component: {fileID: 1623572733}
   - component: {fileID: 1623572737}
+  - component: {fileID: 1623572738}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2194,6 +2195,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7cb56bba0a0c4c95994fba8b23c8273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1623572738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623572732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20746be4d4c84a65b8f6efc2b632769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1907592635

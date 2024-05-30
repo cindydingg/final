@@ -13,4 +13,9 @@ public class LevelCompletedManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void LoadTitleScreen()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
 }
