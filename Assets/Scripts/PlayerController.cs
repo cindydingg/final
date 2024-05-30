@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
+    [SerializeField] private float superJumpHeight = 10;
     private float horizontalDir;
     private bool isGrounded = false;
     private bool canDoubleJump = false;
     private bool hasDoubleJumpPowerUp = false;
+    private bool hasSuperJumpPowerUp = false;
     private int totalCollectibles = 0;
 
     private Rigidbody2D rb;
@@ -55,9 +57,18 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
-            Jump(jumpHeight);
-            canDoubleJump = true;
-            isGrounded = false;
+            if (hasSuperJumpPowerUp)
+            {
+                Jump(superJumpHeight);
+                hasSuperJumpPowerUp = false; 
+                Debug.Log("Super jump executed.");
+            }
+            else
+            {
+                Jump(jumpHeight);
+                canDoubleJump = true;
+                isGrounded = false;
+            }
         }
         else if (!isGrounded && canDoubleJump && hasDoubleJumpPowerUp)
         {
@@ -112,6 +123,13 @@ public class PlayerController : MonoBehaviour
         hasDoubleJumpPowerUp = true;
         Destroy(potion);
         Debug.Log("Collected Potion: Double Jump Activated! hasDoubleJumpPowerUp: " + hasDoubleJumpPowerUp);
+    }
+
+    public void CollectSuperJump(GameObject superJump)
+    {
+        hasSuperJumpPowerUp = true;
+        Destroy(superJump);
+        Debug.Log("Collected Super Jump: Super Jump Activated! hasSuperJumpPowerUp: " + hasSuperJumpPowerUp);
     }
 
     private void Jump(float height)

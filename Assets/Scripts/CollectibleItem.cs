@@ -16,11 +16,14 @@ public class CollectibleItems : MonoBehaviour
             {
                 playerController.CollectPotion(this.gameObject);
             }
+            else if (itemType == "SuperJump")
+            {
+                playerController.CollectSuperJump(this.gameObject);
+            }
             else
             {
                 playerController.CollectItem(this.gameObject);
             }
-            
             Destroy(this.gameObject);
         }
     }
