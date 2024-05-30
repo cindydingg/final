@@ -5,11 +5,22 @@ using UnityEngine;
 public class CollectibleItems : MonoBehaviour
 {
     public string itemType;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().CollectItem(this.gameObject);
+            PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+
+            if (itemType == "Potion")
+            {
+                playerController.CollectPotion(this.gameObject);
+            }
+            else
+            {
+                playerController.CollectItem(this.gameObject);
+            }
+            
             Destroy(this.gameObject);
         }
     }
