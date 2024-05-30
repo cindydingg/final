@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCollectibleCount(int count)
     {
-        collectibleCountText.text = "ingredients: " + count;
+        collectibleCountText.text = "ingredients: " + count + "/3";
     }
 }
 
