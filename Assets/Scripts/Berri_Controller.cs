@@ -13,6 +13,7 @@ public class Berri_Controller : MonoBehaviour
     private float horizontalDir;
     private bool isGrounded = false;
     private int JumpCount = 0;
+    private SpriteRenderer berriboy;
 
     Animator anim;
     private Rigidbody2D rb;
@@ -24,7 +25,7 @@ public class Berri_Controller : MonoBehaviour
     {        
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-       
+        berriboy = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -52,9 +53,18 @@ public class Berri_Controller : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        //Debug.Log(value.ToString());
         anim.SetBool("is_walking", true);
         Vector2 inputDir = value.Get<Vector2>();
         horizontalDir = Mathf.Clamp(inputDir.x, -1.5f, 1.5f);
+        if (horizontalDir < 0)
+        {
+            berriboy.flipX = false;
+        }
+        else if (horizontalDir > 0)
+        {
+            berriboy.flipX = true;
+        }
     }
 
     void OnRun(InputValue value)
@@ -72,6 +82,7 @@ public class Berri_Controller : MonoBehaviour
         }
     }
 
+   
     private void OnCollisionEnter2D(Collision2D col) 
     {
         if (col.gameObject.CompareTag("Floor")) {
