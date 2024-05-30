@@ -580,7 +580,7 @@ MonoBehaviour:
   speed: 3
   sprintSpeed: 5
   jumpHeight: 5
-  doubleJumpHeight: 5
+  doubleJumpHeight: 8
   superJumpHeight: 10
   groundLayer:
     serializedVersion: 2
