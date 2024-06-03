@@ -26,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 3- Water Forest.unity
     guid: 68ec8a99a48ac4663a261b527aeea62a
-  - enabled: 1
-    path: Assets/Scenes/Level3Completed.unity
-    guid: cb0903419b82942129518db0d5c3fe87
   m_configObjects: {}

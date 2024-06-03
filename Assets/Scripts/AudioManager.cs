@@ -12,12 +12,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip background;
     public AudioClip pickup;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-
 
     private void Start()
     {
