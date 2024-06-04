@@ -7,18 +7,19 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
-    [SerializeField] private float sprintSpeed = 8;
+    [SerializeField] private float sprintSpeed = 1;
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
     [SerializeField] private float superJumpHeight = 10;
-    [SerializeField] private LayerMask groundLayer; // LayerMask for ground detection
-    [SerializeField] private float groundCheckDistance = 1.0f; // Distance to check for ground
-
+    [SerializeField] private float superSpeed = 40;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 1.0f;
     private float horizontalDir;
     private bool isGrounded = false;
     private bool canDoubleJump = false;
     private bool hasDoubleJumpPowerUp = false;
     private bool hasSuperJumpPowerUp = false;
+    private bool hasSuperSpeedPowerUp = false;
     private int totalCollectibles = 0;
 
     private Rigidbody2D rb;
@@ -39,8 +40,14 @@ public class PlayerController : MonoBehaviour
         float currentSpeed = speed;
         bool isRunning = Keyboard.current.leftShiftKey.isPressed;
 
-        if (isRunning)
+        if (hasSuperSpeedPowerUp)
         {
+            if (isRunning)
+            {
+                sprintSpeed = superSpeed;
+            }
+        }
+        if (isRunning) {
             currentSpeed = sprintSpeed;
         }
 
@@ -152,6 +159,13 @@ public class PlayerController : MonoBehaviour
         hasSuperJumpPowerUp = true;
         Destroy(superJump);
         Debug.Log("Collected Super Jump: Super Jump Activated! hasSuperJumpPowerUp: " + hasSuperJumpPowerUp);
+    }
+
+    public void CollectSuperSpeed(GameObject superSpeed)
+    {
+        hasSuperSpeedPowerUp = true;
+        Destroy(superSpeed);
+        Debug.Log("Collected Super Speed: Super Speed Activated! hasSuperSpeedPowerUp: " + hasSuperSpeedPowerUp);
     }
 
     private void Jump(float height)

@@ -20,6 +20,10 @@ public class CollectibleItems : MonoBehaviour
             {
                 playerController.CollectSuperJump(this.gameObject);
             }
+            else if (itemType == "SuperSpeed")
+            {
+                playerController.CollectSuperSpeed(this.gameObject);
+            }
             else
             {
                 playerController.CollectItem(this.gameObject);
