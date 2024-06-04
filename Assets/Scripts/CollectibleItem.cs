@@ -24,6 +24,10 @@ public class CollectibleItems : MonoBehaviour
             {
                 playerController.CollectSuperSpeed(this.gameObject);
             }
+            else if (itemType == "Portal")
+            {
+                playerController.TakePortal(this.gameObject);
+            }
             else
             {
                 playerController.CollectItem(this.gameObject);

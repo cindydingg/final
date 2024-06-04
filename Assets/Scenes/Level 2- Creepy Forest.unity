@@ -1373,11 +1373,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32a72c16f9f746a58e43a19f540c9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  sprintSpeed: 8
+  speed: 2
+  sprintSpeed: 5
   jumpHeight: 6
   doubleJumpHeight: 6
   superJumpHeight: 20
+  superSpeed: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

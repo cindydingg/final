@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 5;
-    [SerializeField] private float sprintSpeed = 1;
+    [SerializeField] private float speed = 2;
+    [SerializeField] private float sprintSpeed = 5;
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float doubleJumpHeight = 5;
     [SerializeField] private float superJumpHeight = 10;
-    [SerializeField] private float superSpeed = 40;
+    [SerializeField] private float superSpeed = 10;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 1.0f;
     private float horizontalDir;
@@ -136,10 +136,6 @@ public class PlayerController : MonoBehaviour
             UIManager.Instance.UpdateCollectibleCount(totalCollectibles);
             Destroy(collectible);
             Debug.Log("Collected: " + itemType + ". Total: " + inventory[itemType]);
-            if (totalCollectibles == 3)
-            {
-                CompleteLevel();
-            }
         }
         else
         {
@@ -166,6 +162,14 @@ public class PlayerController : MonoBehaviour
         hasSuperSpeedPowerUp = true;
         Destroy(superSpeed);
         Debug.Log("Collected Super Speed: Super Speed Activated! hasSuperSpeedPowerUp: " + hasSuperSpeedPowerUp);
+    }
+
+    public void TakePortal(GameObject portal)
+    {
+        if (totalCollectibles == 3)
+        {
+            CompleteLevel();
+        }
     }
 
     private void Jump(float height)
