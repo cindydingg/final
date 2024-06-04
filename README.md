@@ -1,4 +1,3 @@
-# Berri's Bakery <3
+# Berri's Bakery
 E96 Final Project: In-Progress
 - 2D player game
-- Come bake with Berri!
