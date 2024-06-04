@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float superSpeed = 10;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 1.0f;
+    [SerializeField] private TextMeshProUGUI powerUpNotification;
+    
     private float horizontalDir;
     private bool isGrounded = false;
     private bool canDoubleJump = false;
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Time.timeScale = 1f;
+        powerUpNotification.text = "";
     }
 
     void Update()
@@ -93,6 +98,8 @@ public class PlayerController : MonoBehaviour
                 Jump(superJumpHeight);
                 hasSuperJumpPowerUp = false; 
                 Debug.Log("Super jump executed.");
+                powerUpNotification.text = "Super Jump Activated!";
+                StartCoroutine(ClearNotificationAfterDelay(2));
             }
             else
             {
@@ -148,6 +155,8 @@ public class PlayerController : MonoBehaviour
         hasDoubleJumpPowerUp = true;
         Destroy(potion);
         Debug.Log("Collected Potion: Double Jump Activated! hasDoubleJumpPowerUp: " + hasDoubleJumpPowerUp);
+        powerUpNotification.text = "Double Jump Activated!";
+        StartCoroutine(ClearNotificationAfterDelay(2));
     }
 
     public void CollectSuperJump(GameObject superJump)
@@ -155,6 +164,8 @@ public class PlayerController : MonoBehaviour
         hasSuperJumpPowerUp = true;
         Destroy(superJump);
         Debug.Log("Collected Super Jump: Super Jump Activated! hasSuperJumpPowerUp: " + hasSuperJumpPowerUp);
+        powerUpNotification.text = "Super Jump Activated!";
+        StartCoroutine(ClearNotificationAfterDelay(2));
     }
 
     public void CollectSuperSpeed(GameObject superSpeed)
@@ -162,6 +173,8 @@ public class PlayerController : MonoBehaviour
         hasSuperSpeedPowerUp = true;
         Destroy(superSpeed);
         Debug.Log("Collected Super Speed: Super Speed Activated! hasSuperSpeedPowerUp: " + hasSuperSpeedPowerUp);
+        powerUpNotification.text = "Super Speed Activated!";
+        StartCoroutine(ClearNotificationAfterDelay(2));
     }
 
     public void TakePortal(GameObject portal)
@@ -182,5 +195,11 @@ public class PlayerController : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    private IEnumerator ClearNotificationAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        powerUpNotification.text = "";
     }
 }
