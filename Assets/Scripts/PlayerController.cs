@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 1.0f;
     [SerializeField] private TextMeshProUGUI powerUpNotification;
-    
+
     private float horizontalDir;
     private bool isGrounded = false;
     private bool canDoubleJump = false;
@@ -52,11 +52,13 @@ public class PlayerController : MonoBehaviour
                 sprintSpeed = superSpeed;
             }
         }
-        if (isRunning) {
+        if (isRunning)
+        {
             currentSpeed = sprintSpeed;
         }
 
-        rb.velocity = new Vector2(horizontalDir * currentSpeed, rb.velocity.y);
+        Vector2 targetVelocity = new Vector2(horizontalDir * currentSpeed, rb.velocity.y);
+        rb.velocity = targetVelocity;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalDir));
         animator.SetBool("isRunning", isRunning);
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
         hasSuperJumpPowerUp = true;
         Destroy(superJump);
         Debug.Log("Collected Super Jump: Super Jump Activated! hasSuperJumpPowerUp: " + hasSuperJumpPowerUp);
-        powerUpNotification.text = "Super Jump Activated!";
+        powerUpNotification.text = "One-time Super Jump Activated!";
         StartCoroutine(ClearNotificationAfterDelay(2));
     }
 
