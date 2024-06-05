@@ -530,7 +530,7 @@ MonoBehaviour:
   speed: 3
   sprintSpeed: 6
   jumpHeight: 5
-  doubleJumpHeight: 8
+  doubleJumpHeight: 6
   superJumpHeight: 10
   superSpeed: 12
   groundLayer:
