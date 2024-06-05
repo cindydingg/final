@@ -15,14 +15,17 @@ public class CollectibleItems : MonoBehaviour
             if (itemType == "Potion")
             {
                 playerController.CollectPotion(this.gameObject);
+                Destroy(this.gameObject);
             }
             else if (itemType == "SuperJump")
             {
                 playerController.CollectSuperJump(this.gameObject);
+                Destroy(this.gameObject);
             }
             else if (itemType == "SuperSpeed")
             {
                 playerController.CollectSuperSpeed(this.gameObject);
+                Destroy(this.gameObject);
             }
             else if (itemType == "Portal")
             {
@@ -31,8 +34,8 @@ public class CollectibleItems : MonoBehaviour
             else
             {
                 playerController.CollectItem(this.gameObject);
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
         }
     }
 }
